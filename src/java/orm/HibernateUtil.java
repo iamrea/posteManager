@@ -5,10 +5,12 @@
  */
 package orm;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
-import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -35,14 +37,22 @@ public class HibernateUtil {
     
     public static SessionFactory getSessionFactory() {
     	if(configuration==null){
-    		configuration = new Configuration();
-            configuration.configure();
+    		configuration  = new Configuration()
+              .configure();
+
     	}
+   
+
+    
         if(serviceRegistry==null)
-        	serviceRegistry = new ServiceRegistryBuilder().applySettings(
-                configuration.getProperties()). buildServiceRegistry();
+        serviceRegistry  = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        	
+               
        if(sessionFactory==null)
     	   sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+       Session session =  sessionFactory.openSession();
+
+    session.beginTransaction();
         return sessionFactory;
     }
 }
