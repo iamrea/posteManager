@@ -5,3 +5,5 @@ __MACOSX
 NBPROJET/*
 !nbprojet/projet.properties
 !nbprojet/projet.xml
+/nbproject/private/
+/build/
