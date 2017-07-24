@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import model.Ville;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -32,7 +33,7 @@ public class VilleService implements Serializable  {
     
     
     public ArrayList<Ville> getAllVille(){
-        ArrayList<Ville> allVille = new ArrayList<Ville>();
+        ArrayList<Ville> allVille = new ArrayList<>();
         try {
 		this.session = HibernateUtil.getSessionFactory().openSession(); 
 		Transaction tx = session.beginTransaction();
@@ -40,9 +41,8 @@ public class VilleService implements Serializable  {
             allVille = (ArrayList<Ville>) req.list();
             tx.commit();
             //session.clear();
-		} catch (Exception e) {
-		  System.out.println("Erreur dans getAllBL\n"+e);
-                  e.printStackTrace();
+		} catch (HibernateException e) {
+		  System.out.println("Erreur dans getAllVille\n"+e);
 		}
         return allVille;
     }
@@ -89,7 +89,7 @@ public class VilleService implements Serializable  {
 		return result;
 	}
     
-   public int addBl(Ville VilleToUpdate){
+   public int addVille(Ville VilleToUpdate){
 		int result=0;
 		try {
 			this.session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -100,17 +100,14 @@ public class VilleService implements Serializable  {
 				tx = session.beginTransaction();
 			}
 			session.save(VilleToUpdate);
-//			String strReq="insert into User(nom,prenom,login,password,profile,iddepartement)";
-//            Query req = session.createQuery(strReq).setString(0, userToUpdate.getNom()).setString(1, userToUpdate.getPrenom()).setString(2, userToUpdate.getLogin()).setString(3, userToUpdate.getPassword()).setString(4, userToUpdate.getProfile()).setInteger(5, idDep);
-//            result= req.executeUpdate();
+
             tx.commit();
             if(result>0){
             	System.out.println("Ville Ajoute avec succés");
             }
             //session.clear();
-		} catch (Exception e) {
-			System.out.println("Erreur dans addUser\n"+e);
-            e.printStackTrace();
+		} catch (HibernateException e) {
+			System.out.println("Erreur dans addVille\n"+e);
             session.close();
 		}
 		return result;

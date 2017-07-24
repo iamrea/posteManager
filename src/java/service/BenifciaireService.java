@@ -9,11 +9,9 @@ package service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import model.Benificiaire;
-import model.Tournee;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -119,7 +117,7 @@ public class BenifciaireService    implements Serializable{
 //            result= req.executeUpdate();
             tx.commit();
             if(result>0){
-            	System.out.println("MatÃ©iel AjoutÃ© avec succÃ¨s");
+            	System.out.println("Benificiare  Ajouté avec succés");
             }
             //session.clear();
 		} catch (HibernateException e) {
