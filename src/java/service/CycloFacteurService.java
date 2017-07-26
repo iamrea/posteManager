@@ -60,7 +60,6 @@ public class CycloFacteurService implements Serializable{
     /**
      *
      * @param CFToDelete
-     * @param BEToDelete
      * @return
      */
     public int deleteCF(CycloFacteur CFToDelete){

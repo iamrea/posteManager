@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import model.Quartier;
+import model.Drap;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -21,30 +21,30 @@ import orm.HibernateUtil;
  * @author Rabab
  */
 @RequestScoped
-@Named("QuartierService")
-public class QuartierService implements Serializable{
+@Named("DrapService")
+public class DrapService implements Serializable{
     
     private static final long serialVersionUID = 1L;
 	Session session=null;
 
-    public QuartierService () {
+    public DrapService () {
     }
         
         
         
-    public ArrayList<Quartier> getAllQuartier(){
-        ArrayList<Quartier> allQuartier = new ArrayList<>();
+    public ArrayList<Drap> getAllDrap(){
+        ArrayList<Drap> allDrap = new ArrayList<>();
         try {
 		this.session = HibernateUtil.getSessionFactory().openSession(); 
 		Transaction tx = session.beginTransaction();
-		Query req = session.createQuery("from Quartier q order by q.nom");
-            allQuartier= (ArrayList<Quartier>) req.list();
+		Query req = session.createQuery("from Drap d order by d.nom");
+            allDrap = (ArrayList<Drap>) req.list();
             tx.commit();
             //session.clear();
 		} catch (HibernateException e) {
-		  System.out.println("Erreur dans getAllQuartier\n"+e);
+		  System.out.println("Erreur dans getAllDrap\n"+e);
 		}
-        return allQuartier;
+        return allDrap;
     }
     
     
@@ -54,26 +54,26 @@ public class QuartierService implements Serializable{
     
     
     
-    public int deleteQuartier(Quartier QuartierToDelete){
+    public int deleteDrap(Drap DrapToDelete){
 		int result=0;
 		try {
 			this.session = HibernateUtil.getSessionFactory().getCurrentSession();
 			Transaction tx = session.beginTransaction();
-			String strReq="delete from Quartier q where q.id=?";
-            Query req = session.createQuery(strReq).setInteger(0, QuartierToDelete.getId());
+			String strReq="delete from Drap d where d.id=?";
+            Query req = session.createQuery(strReq).setInteger(0, DrapToDelete.getId());
             result= req.executeUpdate();
             tx.commit();
             if(result>0){
-            	System.out.println("Quartier supprimée avec succès");
+            	System.out.println("Drap supprimée avec succès");
             }
             //session.clear();
 		} catch (HibernateException e) {
-			System.out.println("Erreur dans deleteQuartier\n"+e);
+			System.out.println("Erreur dans deleteDrap\n"+e);
 		}
 		return result;
 	}
 	
-	public int updateQuartier(Quartier QuartierToUpdate){
+	public int updateDrap(Drap DrapToUpdate){
 		int result=0;
 		try {
 			this.session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -82,24 +82,24 @@ public class QuartierService implements Serializable{
 				session=HibernateUtil.getSessionFactory().openSession();
 				tx = session.beginTransaction();
 			}
-			session.update(QuartierToUpdate);
+			session.update(DrapToUpdate);
             tx.commit();
             if(result>0){
-            	System.out.println("Quartier etait  ajouté avec succes");
+            	System.out.println("Drap  ajouté avec succes");
             }
             //session.clear();
 		} catch (HibernateException e) {
-			System.out.println("Erreur dans updateQuartier\n"+e);
+			System.out.println("Erreur dans updateDrap\n"+e);
 		}
 		return result;
 	}
 	
     /**
      *
-     * @param QuartierToUpdate
+     * @param DrapToUpdate
      * @return
      */
-    public int addQuartier(Quartier QuartierToUpdate){
+    public int addDrap(Drap DrapToUpdate){
 		int result=0;
 		try {
 			this.session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -109,21 +109,20 @@ public class QuartierService implements Serializable{
 				session=HibernateUtil.getSessionFactory().openSession();
 				tx = session.beginTransaction();
 			}
-			session.save(QuartierToUpdate);
+			session.save(DrapToUpdate);
 //			String strReq="insert into User(nom,prenom,login,password,profile,iddepartement)";
 //            Query req = session.createQuery(strReq).setString(0, userToUpdate.getNom()).setString(1, userToUpdate.getPrenom()).setString(2, userToUpdate.getLogin()).setString(3, userToUpdate.getPassword()).setString(4, userToUpdate.getProfile()).setInteger(5, idDep);
 //            result= req.executeUpdate();
             tx.commit();
             if(result>0){
-            	System.out.println("Quartier  Ajouté avec succés");
+            	System.out.println("Drap  Ajouté avec succés");
             }
             //session.clear();
 		} catch (HibernateException e) {
-			System.out.println(e+"Erreur dans addQuartier\n");
+			System.out.println(e+"Erreur dans addDrap\n");
             session.close();
 		}
 		return result;
 	}
 }
-
 

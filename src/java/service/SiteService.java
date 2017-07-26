@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import model.Quartier;
+import model.Site;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -21,30 +21,30 @@ import orm.HibernateUtil;
  * @author Rabab
  */
 @RequestScoped
-@Named("QuartierService")
-public class QuartierService implements Serializable{
+@Named("SiteService")
+public class SiteService implements Serializable{
     
     private static final long serialVersionUID = 1L;
 	Session session=null;
 
-    public QuartierService () {
+    public SiteService () {
     }
         
         
         
-    public ArrayList<Quartier> getAllQuartier(){
-        ArrayList<Quartier> allQuartier = new ArrayList<>();
+    public ArrayList<Site> getAllSite(){
+        ArrayList<Site> allSite = new ArrayList<>();
         try {
 		this.session = HibernateUtil.getSessionFactory().openSession(); 
 		Transaction tx = session.beginTransaction();
-		Query req = session.createQuery("from Quartier q order by q.nom");
-            allQuartier= (ArrayList<Quartier>) req.list();
+		Query req = session.createQuery("from Site s order by s.nom");
+            allSite = (ArrayList<Site>) req.list();
             tx.commit();
             //session.clear();
 		} catch (HibernateException e) {
-		  System.out.println("Erreur dans getAllQuartier\n"+e);
+		  System.out.println("Erreur dans getAllSite\n"+e);
 		}
-        return allQuartier;
+        return allSite;
     }
     
     
@@ -54,26 +54,26 @@ public class QuartierService implements Serializable{
     
     
     
-    public int deleteQuartier(Quartier QuartierToDelete){
+    public int deleteSite(Site SiteToDelete){
 		int result=0;
 		try {
 			this.session = HibernateUtil.getSessionFactory().getCurrentSession();
 			Transaction tx = session.beginTransaction();
-			String strReq="delete from Quartier q where q.id=?";
-            Query req = session.createQuery(strReq).setInteger(0, QuartierToDelete.getId());
+			String strReq="delete from Site s where s.id=?";
+            Query req = session.createQuery(strReq).setInteger(0, SiteToDelete.getId());
             result= req.executeUpdate();
             tx.commit();
             if(result>0){
-            	System.out.println("Quartier supprimée avec succès");
+            	System.out.println("Site supprimée avec succès");
             }
             //session.clear();
 		} catch (HibernateException e) {
-			System.out.println("Erreur dans deleteQuartier\n"+e);
+			System.out.println("Erreur dans deleteSite\n"+e);
 		}
 		return result;
 	}
 	
-	public int updateQuartier(Quartier QuartierToUpdate){
+	public int updateSite(Site SiteToUpdate){
 		int result=0;
 		try {
 			this.session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -82,24 +82,24 @@ public class QuartierService implements Serializable{
 				session=HibernateUtil.getSessionFactory().openSession();
 				tx = session.beginTransaction();
 			}
-			session.update(QuartierToUpdate);
+			session.update(SiteToUpdate);
             tx.commit();
             if(result>0){
-            	System.out.println("Quartier etait  ajouté avec succes");
+            	System.out.println("Site  ajouté avec succes");
             }
             //session.clear();
 		} catch (HibernateException e) {
-			System.out.println("Erreur dans updateQuartier\n"+e);
+			System.out.println("Erreur dans updateSite\n"+e);
 		}
 		return result;
 	}
 	
     /**
      *
-     * @param QuartierToUpdate
+     * @param SiteToUpdate
      * @return
      */
-    public int addQuartier(Quartier QuartierToUpdate){
+    public int addSite(Site SiteToUpdate){
 		int result=0;
 		try {
 			this.session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -109,21 +109,20 @@ public class QuartierService implements Serializable{
 				session=HibernateUtil.getSessionFactory().openSession();
 				tx = session.beginTransaction();
 			}
-			session.save(QuartierToUpdate);
+			session.save(SiteToUpdate);
 //			String strReq="insert into User(nom,prenom,login,password,profile,iddepartement)";
 //            Query req = session.createQuery(strReq).setString(0, userToUpdate.getNom()).setString(1, userToUpdate.getPrenom()).setString(2, userToUpdate.getLogin()).setString(3, userToUpdate.getPassword()).setString(4, userToUpdate.getProfile()).setInteger(5, idDep);
 //            result= req.executeUpdate();
             tx.commit();
             if(result>0){
-            	System.out.println("Quartier  Ajouté avec succés");
+            	System.out.println("Site  Ajouté avec succés");
             }
             //session.clear();
 		} catch (HibernateException e) {
-			System.out.println(e+"Erreur dans addQuartier\n");
+			System.out.println(e+"Erreur dans SiteSecteur\n");
             session.close();
 		}
 		return result;
 	}
 }
-
 
