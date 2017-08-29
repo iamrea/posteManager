@@ -1,3 +1,9 @@
+<%-- 
+    Document   : AjoutCyclo
+    Created on : 29 août 2017, 23:57:09
+    Author     : PC
+--%>
+
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -5,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Ajout cyclo</title>
         <%@include file="/include/css.jsp" %>
         <style type="text/css">
 .form-style-2{

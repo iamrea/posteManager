@@ -1,3 +1,9 @@
+<%-- 
+    Document   : AjoutBLS
+    Created on : 29 août 2017, 23:59:39
+    Author     : PC
+--%>
+
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
